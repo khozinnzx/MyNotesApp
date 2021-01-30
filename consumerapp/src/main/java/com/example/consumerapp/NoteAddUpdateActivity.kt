@@ -1,23 +1,21 @@
-package com.example.mynotesapp
+package com.example.consumerapp
 
 import android.content.ContentValues
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import com.example.mynotesapp.databinding.ActivityNoteAddUpdateBinding
-import com.example.mynotesapp.db.DatabaseContract
-import com.example.mynotesapp.db.DatabaseContract.NoteColumns.Companion.CONTENT_URI
-import com.example.mynotesapp.db.DatabaseContract.NoteColumns.Companion.DATE
-import com.example.mynotesapp.db.DatabaseHelper
-import com.example.mynotesapp.db.NoteHelper
-import com.example.mynotesapp.entity.Note
-import com.example.mynotesapp.helper.MappingHelper
+import androidx.appcompat.app.AppCompatActivity
+import com.example.consumerapp.databinding.ActivityNoteAddUpdateBinding
+import com.example.consumerapp.db.DatabaseContract
+import com.example.consumerapp.db.DatabaseContract.NoteColumns.Companion.CONTENT_URI
+import com.example.consumerapp.db.DatabaseContract.NoteColumns.Companion.DATE
+import com.example.consumerapp.entity.Note
+import com.example.consumerapp.helper.MappingHelper
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -25,7 +23,6 @@ class NoteAddUpdateActivity : AppCompatActivity(), View.OnClickListener {
     private var isEdit = false
     private var note: Note? = null
     private var position: Int = 0
-    private lateinit var noteHelper: NoteHelper
     private lateinit var binding: ActivityNoteAddUpdateBinding
     private lateinit var uriWithId: Uri
 
@@ -45,9 +42,6 @@ class NoteAddUpdateActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         binding = ActivityNoteAddUpdateBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        noteHelper = NoteHelper.getInstance(applicationContext)
-        noteHelper.open()
 
         note = intent.getParcelableExtra(EXTRA_NOTE)
         if (note != null) {
